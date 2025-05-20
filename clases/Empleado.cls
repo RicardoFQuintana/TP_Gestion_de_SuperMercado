@@ -10,14 +10,12 @@ Empleado comment: ''!
 !Empleado categoriesForClass!Kernel-Objects! !
 !Empleado methodsFor!
 
-initEmpleadoNom: unNom dni: unDni telefono: unTelefono id: unId cargo: unCargo salario: unSalario fecha: unaFecha
-    nombre := unNom.
-    dni := unDni.
-    telefono := unTelefono.
+initEmpleadoNom: unNom dni: unDni telefono: unTel id: unId cargo: unCargo salario: unSalario fecha: unaFecha
     idEmpleado := unId.
     cargo := unCargo.
     salario := unSalario.
-    fechaIngresa := unaFecha.!
+    fechaIngresa := unaFecha.
+    super initPersonaNom:unNom dni:unDni telefono:unTel.!
 
 modCargo: unCargo
     ^cargo := unCargo.!

@@ -25,7 +25,7 @@ existeFactura:unaFactura
 iniClienteId: unId nom: unNom dni: unDni tel: unTel
 idCliente:= unId.
 listaFacturas:= OrderedCollection new.
-super iniPersonaNom: unNom dni: unDni telefono: unTel.!
+super initPersonaNom:unNom dni:unDni telefono:unTel.!
 
 modId: unId
 idCliente:=unId.!
