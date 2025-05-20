@@ -29,6 +29,12 @@ agregarVenta: unaVenta
     listaVentas add: unaVenta.
 !
 
+buscarProductoPorId: unId
+    ^listProductoVenta detect: [ :prod | prod verIdProducto = unId ] ifNone: [ nil ].!
+
+buscarProductoPorNombre: unNombre
+    ^listProductoVenta detect: [ :prod | prod verNombre = unNombre ] ifNone: [ nil ].!
+
 initSupermercadoNombre: unNombre direccion: unaDireccion
     nombre := unNombre.
     direccion := unaDireccion.
@@ -44,6 +50,9 @@ modDireccion: unaDireccion
 
 modNombre: unNombre
     ^nombre := unNombre.!
+
+productosPorProveedor: unProveedor
+    ^listProductoVenta select: [ :producto | producto verProveedor = unProveedor ].!
 
 verDireccion
     ^direccion.!
@@ -76,9 +85,12 @@ verNombre
 !SuperMecado categoriesFor: #agregarProductoVenta:!public! !
 !SuperMecado categoriesFor: #agregarProveedor:!public! !
 !SuperMecado categoriesFor: #agregarVenta:!public! !
+!SuperMecado categoriesFor: #buscarProductoPorId:!public! !
+!SuperMecado categoriesFor: #buscarProductoPorNombre:!public! !
 !SuperMecado categoriesFor: #initSupermercadoNombre:direccion:!public! !
 !SuperMecado categoriesFor: #modDireccion:!public! !
 !SuperMecado categoriesFor: #modNombre:!public! !
+!SuperMecado categoriesFor: #productosPorProveedor:!public! !
 !SuperMecado categoriesFor: #verDireccion!public! !
 !SuperMecado categoriesFor: #verListaCajas!public! !
 !SuperMecado categoriesFor: #verListaVentas!public! !

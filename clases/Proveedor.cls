@@ -15,7 +15,7 @@ idProveedor:= unId.
 cuit:= cuit.
 razonSocial:= unaRSocial.
 direccion:= unaDire.
-super iniPersonaNom: unNom dni: unDni telefono: unTel.!
+super initPersonaNom:unNom dni:unDni telefono:unTel.!
 
 modiCuit: unCuit
 cuit:= unCuit.!
