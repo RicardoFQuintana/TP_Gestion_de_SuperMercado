@@ -324,7 +324,8 @@ mostrarMenu
         Transcript show: '2. Buscar producto por ID'; cr.
         Transcript show: '3. Ver productos por proveedor'; cr.
 	Transcript show: '4. Estadisticas del Negocio'; cr.
-        Transcript show: '5. Salir'; cr.
+	Transcript show: '5. Realizar Venta'; cr.
+        Transcript show: '6. Salir'; cr.
 
         opcion := Prompter prompt: 'Ingrese opción (1-4)'.
 
@@ -332,7 +333,8 @@ mostrarMenu
         opcion = '2' ifTrue: [ self buscarProducto ].
         opcion = '3' ifTrue: [ self verProductosPorProveedor ].
 	opcion = '4' ifTrue: [ self mostrarSubmenuEstadistica ].
-        opcion = '5' ifTrue: [ continuar := false ].
+	opcion = '5' ifTrue: [ self ventaAlPublico ].
+        opcion = '6' ifTrue: [ continuar := false ].
 	
     ].
 	!
@@ -425,6 +427,73 @@ stockPorCategoria
 	Prompter prompt: 'Presione ENTER para continuar'.
 	Transcript clear.!
 
+ventaAlPublico
+    | clienteId cliente empleadoId empleado cajaId caja tipoPagoId tipoPago productos infoProd idVenta fecha total descuento totalFinal productoId producto cantidad nombreSuper infoProdDict venta|
+
+    clienteId := Prompter prompt: 'Ingrese ID del cliente'.
+    cliente := supermercado verListClientes detect: [:c | c verId = clienteId] ifNone: [nil].
+    cliente isNil ifTrue: [Transcript show: 'Cliente no encontrado'; cr. ^self].
+
+    empleadoId := Prompter prompt: 'Ingrese ID del empleado'.
+    empleado := supermercado verListEmpleados detect: [:e | e verIdEmpleado = empleadoId] ifNone: [nil].
+    empleado isNil ifTrue: [Transcript show: 'Empleado no encontrado'; cr. ^self].
+
+    cajaId := Prompter prompt: 'Ingrese ID de la caja'.
+    caja := supermercado verListaCajas detect: [:c | c verIdCaja = cajaId] ifNone: [nil].
+    caja isNil ifTrue: [Transcript show: 'Caja no encontrada'; cr. ^self].
+
+
+    tipoPagoId := Prompter prompt: 'Ingrese ID del tipo de pago'.
+    tipoPago := caja retornarTipoPago: tipoPagoId.
+    tipoPago isNil ifTrue: [Transcript show: 'Tipo de pago no encontrado en esa caja'; cr. ^self].
+
+    infoProdDict := Dictionary new.
+    total := 0.
+
+    [ (Prompter prompt: '¿Agregar otro producto? (s/n)') = 's' ] whileTrue: [
+        productoId := Prompter prompt: 'ID del producto'.
+        producto := supermercado buscarProductoPorId: productoId.
+        producto isNil ifTrue: [Transcript show: 'Producto no encontrado'; cr] ifFalse: [
+            cantidad := (Prompter prompt: 'Cantidad') asNumber.
+            (producto verStock < cantidad) ifTrue: [
+                Transcript show: 'No hay stock suficiente para ', producto verNombre; cr.
+            ] ifFalse: [
+                infoProdDict at: productoId put: cantidad.
+                total := total + (producto verPrecio * cantidad).
+            ].
+        ].
+    ].
+
+    infoProdDict isEmpty ifTrue: [
+        Transcript show: 'No se seleccionaron productos válidos. Venta cancelada.'; cr.
+        ^self
+    ].
+
+    descuento := tipoPago verDescuento.
+    totalFinal := total * (1 - (descuento / 100)).
+
+    idVenta := 'v', (1000 + (supermercado verListaVentas size + 1)) asString.
+    fecha := Date today.
+    nombreSuper := supermercado verNombre.
+
+    "Crear venta y registrar"
+    venta := Venta crearVentaId: idVenta fecha: fecha total: totalFinal idCliente: cliente verId.
+    infoProdDict keysAndValuesDo: [:pid :cant |
+        venta agregarVentaProducto: pid cant: cant.
+    ].
+    supermercado agregarVenta: venta.
+
+    "Registrar factura"
+    caja registrarFacturaId: idVenta nomSupermercado: nombreSuper dniCliente: cliente verDni idTpago: tipoPagoId idEmpleado: empleado verIdEmpleado idVenta: idVenta infoProductosVendidos: infoProdDict importeT: totalFinal.
+
+    "Actualizar stock"
+    infoProdDict keysAndValuesDo: [:pid :cant |
+        producto := supermercado buscarProductoPorId: pid.
+        producto modStock: cant.
+    ].
+
+    Transcript show: ' Venta realizada con éxito en caja ', cajaId, '. Total: ', totalFinal printString; cr.!
+
 ventasPorTipoPago
 	| dict cajas facturas idPago cantidad tipoPago detalle |
 	dict := Dictionary new.
@@ -493,6 +562,7 @@ verRecaudacionCaja
 !MenuPrincipal categoriesFor: #mostrarSubmenuEstadistica!public! !
 !MenuPrincipal categoriesFor: #productosMasVendidos!public! !
 !MenuPrincipal categoriesFor: #stockPorCategoria!public! !
+!MenuPrincipal categoriesFor: #ventaAlPublico!public! !
 !MenuPrincipal categoriesFor: #ventasPorTipoPago!public! !
 !MenuPrincipal categoriesFor: #verProductosPorProveedor!public! !
 !MenuPrincipal categoriesFor: #verRecaudacionCaja!public! !
