@@ -35,7 +35,6 @@ modificarRecaudacion: unMonto
 	recaudacion := recaudacion + unMonto.!
 
 registrarFacturaId: unId  nomSupermercado:unNom dniCliente: unDni idTpago: unIdPago idEmpleado: unIdEmple idVenta: unIdVenta infoProductosVendidos: colec importeT: unTotal
-	"Registra una factura"
 
 	| unaFactura |
 	unaFactura := Factura
@@ -54,10 +53,7 @@ registrarTipoPagoId: unId det: unDetalle desc: unDescuento
 	"Registra un tipo de Pago"
 
 	| unTipoPago |
-	unTipoPago := TipoPago
-				crearTipoPagoId: unId
-				detalle: unDetalle
-				descuento: unDescuento.
+	unTipoPago := Tipo_Pago crearTipoPagoId: unId detalle: unDetalle descuento: unDescuento.
 	listaTiposPago add: unTipoPago.!
 
 retornarFactura: unId

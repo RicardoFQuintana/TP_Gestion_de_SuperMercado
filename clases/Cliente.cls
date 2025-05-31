@@ -30,6 +30,9 @@ super initPersonaNom:unNom dni:unDni telefono:unTel.!
 modId: unId
 idCliente:=unId.!
 
+verDni
+    ^dni.!
+
 verId
 ^idCliente.! !
 !Cliente categoriesFor: #agregarFactura:!public! !
@@ -38,6 +41,7 @@ verId
 !Cliente categoriesFor: #existeFactura:!public! !
 !Cliente categoriesFor: #iniClienteId:nom:dni:tel:!public! !
 !Cliente categoriesFor: #modId:!public! !
+!Cliente categoriesFor: #verDni!public! !
 !Cliente categoriesFor: #verId!public! !
 
 !Cliente class methodsFor!
