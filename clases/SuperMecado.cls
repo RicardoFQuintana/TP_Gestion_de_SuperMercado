@@ -29,11 +29,17 @@ agregarVenta: unaVenta
     listaVentas add: unaVenta.
 !
 
+buscarCajaPorId: unId
+    ^listaCajas detect: [ :caj | caj verIdCaja = unId ] ifNone: [ nil ].!
+
 buscarProductoPorId: unId
     ^listProductoVenta detect: [ :prod | prod verIdProducto = unId ] ifNone: [ nil ].!
 
 buscarProductoPorNombre: unNombre
     ^listProductoVenta detect: [ :prod | prod verNombre = unNombre ] ifNone: [ nil ].!
+
+buscarProveedorPorId: unId
+    ^listProveedor detect: [ :prov | prov verId = unId ] ifNone: [ nil ].!
 
 initSupermercadoNombre: unNombre direccion: unaDireccion
     nombre := unNombre.
@@ -85,8 +91,10 @@ verNombre
 !SuperMecado categoriesFor: #agregarProductoVenta:!public! !
 !SuperMecado categoriesFor: #agregarProveedor:!public! !
 !SuperMecado categoriesFor: #agregarVenta:!public! !
+!SuperMecado categoriesFor: #buscarCajaPorId:!public! !
 !SuperMecado categoriesFor: #buscarProductoPorId:!public! !
 !SuperMecado categoriesFor: #buscarProductoPorNombre:!public! !
+!SuperMecado categoriesFor: #buscarProveedorPorId:!public! !
 !SuperMecado categoriesFor: #initSupermercadoNombre:direccion:!public! !
 !SuperMecado categoriesFor: #modDireccion:!public! !
 !SuperMecado categoriesFor: #modNombre:!public! !
