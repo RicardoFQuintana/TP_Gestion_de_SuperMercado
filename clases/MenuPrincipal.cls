@@ -428,63 +428,21 @@ stockPorCategoria
 	Transcript clear.!
 
 ventaAlPublico
-   | clienteId cliente empleadoId empleado cajaId caja tipoPagoId tipoPago infoProdDict total totalFinal descuento idVenta fecha nombreSuper productoId producto cantidad |
+    | clienteId empleadoId cajaId tipoPagoId resultado |
+
     clienteId := Prompter prompt: 'Ingrese ID del cliente'.
-    cliente := supermercado buscarClientePorId: clienteId.
-    cliente isNil ifTrue: [Transcript show: 'Cliente no encontrado'; cr. ^self].
-
     empleadoId := Prompter prompt: 'Ingrese ID del empleado'.
-    empleado := supermercado buscarEmpleadoPorId: empleadoId.
-    empleado isNil ifTrue: [Transcript show: 'Empleado no encontrado'; cr. ^self].
-
     cajaId := Prompter prompt: 'Ingrese ID de la caja'.
-    caja := supermercado buscarCajaPorId: cajaId.
-    caja isNil ifTrue: [Transcript show: 'Caja no encontrada'; cr. ^self].
-
-
     tipoPagoId := Prompter prompt: 'Ingrese ID del tipo de pago'.
-    tipoPago := caja retornarTipoPago: tipoPagoId.
-    tipoPago isNil ifTrue: [Transcript show: 'Tipo de pago no encontrado en esa caja'; cr. ^self].
 
-    infoProdDict := Dictionary new.
-    total := 0.
+    resultado := supermercado procesarVentaConCliente: clienteId 
+        empleado: empleadoId 
+        caja: cajaId 
+        tipoPago: tipoPagoId.
 
-    [ (Prompter prompt: '¿Agregar otro producto? (s/n)') = 's' ] whileTrue: [
-        productoId := Prompter prompt: 'ID del producto'.
-        producto := supermercado buscarProductoPorId: productoId.
-        producto isNil ifTrue: [Transcript show: 'Producto no encontrado'; cr] ifFalse: [
-            cantidad := (Prompter prompt: 'Cantidad') asNumber.
-            (producto verStock < cantidad) ifTrue: [
-                Transcript show: 'No hay stock suficiente para ', producto verNombre; cr.
-            ] ifFalse: [
-                infoProdDict at: productoId put: cantidad.
-                total := total + (producto verPrecio * cantidad).
-            ].
-        ].
-    ].
-
-    infoProdDict isEmpty ifTrue: [
-        Transcript show: 'No se seleccionaron productos válidos. Venta cancelada.'; cr.
-        ^self
-    ].
-
-    descuento := tipoPago verDescuento.
-    totalFinal := total * (1 - (descuento / 100)).
-
-    idVenta := supermercado generarIdVenta.
-    fecha := Date today.
-    nombreSuper := supermercado verNombre.
-
-    "Crear venta y registrar"
-    supermercado registrarVentaConId: idVenta fecha: fecha total: totalFinal idCliente: cliente verId productos: infoProdDict.
-
-    "Registrar factura"
-    caja registrarFacturaId: idVenta nomSupermercado: nombreSuper dniCliente: cliente verDni idTpago: tipoPagoId idEmpleado: empleado verIdEmpleado idVenta: idVenta infoProductosVendidos: infoProdDict importeT: totalFinal.
-
-    "Actualizar stock"
-    supermercado descontarStockDeProductos: infoProdDict.
-
-    Transcript show: ' Venta realizada con éxito en caja ', cajaId, '. Total: ', totalFinal printString; cr.!
+    resultado isString
+        ifTrue: [ Transcript show: resultado; cr ]
+        ifFalse: [ Transcript show: 'Venta realizada con éxito. Total: ', resultado printString; cr ].!
 
 ventasPorTipoPago
 	| dict cajas facturas idPago cantidad tipoPago detalle |
