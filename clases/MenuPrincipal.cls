@@ -428,18 +428,17 @@ stockPorCategoria
 	Transcript clear.!
 
 ventaAlPublico
-    | clienteId cliente empleadoId empleado cajaId caja tipoPagoId tipoPago productos infoProd idVenta fecha total descuento totalFinal productoId producto cantidad nombreSuper infoProdDict venta|
-
+   | clienteId cliente empleadoId empleado cajaId caja tipoPagoId tipoPago infoProdDict total totalFinal descuento idVenta fecha nombreSuper productoId producto cantidad |
     clienteId := Prompter prompt: 'Ingrese ID del cliente'.
-    cliente := supermercado verListClientes detect: [:c | c verId = clienteId] ifNone: [nil].
+    cliente := supermercado buscarClientePorId: clienteId.
     cliente isNil ifTrue: [Transcript show: 'Cliente no encontrado'; cr. ^self].
 
     empleadoId := Prompter prompt: 'Ingrese ID del empleado'.
-    empleado := supermercado verListEmpleados detect: [:e | e verIdEmpleado = empleadoId] ifNone: [nil].
+    empleado := supermercado buscarEmpleadoPorId: empleadoId.
     empleado isNil ifTrue: [Transcript show: 'Empleado no encontrado'; cr. ^self].
 
     cajaId := Prompter prompt: 'Ingrese ID de la caja'.
-    caja := supermercado verListaCajas detect: [:c | c verIdCaja = cajaId] ifNone: [nil].
+    caja := supermercado buscarCajaPorId: cajaId.
     caja isNil ifTrue: [Transcript show: 'Caja no encontrada'; cr. ^self].
 
 
@@ -472,25 +471,18 @@ ventaAlPublico
     descuento := tipoPago verDescuento.
     totalFinal := total * (1 - (descuento / 100)).
 
-    idVenta := 'v', (1000 + (supermercado verListaVentas size + 1)) asString.
+    idVenta := supermercado generarIdVenta.
     fecha := Date today.
     nombreSuper := supermercado verNombre.
 
     "Crear venta y registrar"
-    venta := Venta crearVentaId: idVenta fecha: fecha total: totalFinal idCliente: cliente verId.
-    infoProdDict keysAndValuesDo: [:pid :cant |
-        venta agregarVentaProducto: pid cant: cant.
-    ].
-    supermercado agregarVenta: venta.
+    supermercado registrarVentaConId: idVenta fecha: fecha total: totalFinal idCliente: cliente verId productos: infoProdDict.
 
     "Registrar factura"
     caja registrarFacturaId: idVenta nomSupermercado: nombreSuper dniCliente: cliente verDni idTpago: tipoPagoId idEmpleado: empleado verIdEmpleado idVenta: idVenta infoProductosVendidos: infoProdDict importeT: totalFinal.
 
     "Actualizar stock"
-    infoProdDict keysAndValuesDo: [:pid :cant |
-        producto := supermercado buscarProductoPorId: pid.
-        producto modStock: cant.
-    ].
+    supermercado descontarStockDeProductos: infoProdDict.
 
     Transcript show: ' Venta realizada con éxito en caja ', cajaId, '. Total: ', totalFinal printString; cr.!
 
