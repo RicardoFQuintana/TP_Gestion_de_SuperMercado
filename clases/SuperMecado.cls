@@ -104,7 +104,10 @@ eliminarProveedor: unId
     Transcript show: 'Proveedor eliminado con éxito.'; cr.!
 
 generarIdVenta
-    ^'v', (1000 + self verListaVentas size + 1) asString.!
+    | numero |
+    numero := 100 + self verListaVentas size + 1.
+    ^ 'V',(numero printString).
+!
 
 initSupermercadoNombre: unNombre direccion: unaDireccion
     nombre := unNombre.
