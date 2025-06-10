@@ -472,6 +472,8 @@ mostrarSubmenuEliminacion
         opcion = '4' ifTrue: [ self eliminarProducto ].
         opcion = '5' ifTrue: [ continuar := false ].
     ].!
+
+
 mostrarSubMenuConsulta
 	| opcion continuar id objeto |
 	continuar := true.
@@ -482,9 +484,8 @@ mostrarSubMenuConsulta
 1. Consultar producto
 2. Consultar proveedor
 3. Consultar empleado
-4. Consultar tipo de pago
-5. Consultar cliente
-6. Volver al menú principal
+4. Consultar cliente
+5. Volver al menú principal
 '; cr.
 
         opcion := Prompter prompt: 'Ingrese opción (1-5)'.
