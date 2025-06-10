@@ -59,6 +59,29 @@ crearEmpleado
 
 Prompter prompt: 'Presione ENTER para continuar'.!
 
+crearproducto
+    | n p c i  sM S pro proveedor proveedorId|
+
+    supermercado agregarProveedor: proveedor.
+    n := Prompter prompt: 'Nombre'.
+    p := (Prompter prompt: 'Precio') asNumber.
+    c := Prompter prompt: 'Categoria'.
+    i := Prompter prompt: 'ID'.
+    S := (Prompter prompt: 'Stock') asNumber.
+    sM := (Prompter prompt: 'Stock Minimo') asNumber.
+
+   proveedorId := Prompter prompt: ' Ingrese ID de un Proveedor'.
+
+    proveedor := supermercado buscarProveedorPorId: proveedorId.
+
+    pro := Producto crearProductoId:i nom: n precio: p cat: c sMin: sM stock: S proveedor: proveedor.
+    supermercado agregarProductoVenta: pro.
+    Transcript show: 'Producto agregado: ', pro verNombre; cr.
+
+
+    
+    !
+
 crearProducto
     | n p c i sM S pro proveedor proveedorId |
 
@@ -425,55 +448,6 @@ mostrarMenu
     ].
 	!
 
-mostrarSubmenuCreacion
-	| opcion continuar |
-	 continuar := true.
-	[ continuar ] whileTrue: [
-        Transcript clear.
-        Transcript show: '--- SUBMENÚ DE CREACIÓN ---'; cr.
-        Transcript show: '1. Crear cliente'; cr.
-        Transcript show: '2. Crear empleado'; cr.
-        Transcript show: '3. Crear proveedor'; cr.
-        Transcript show: '4. Crear producto'; cr.
-        Transcript show: '5. Crear tipo de pago'; cr.
-        Transcript show: '6. Crear caja'; cr.
-        Transcript show: '7. Volver al menú principal'; cr.
-
-        opcion := Prompter prompt: 'Ingrese opción (1-7)'.
-
-        opcion = '1' ifTrue: [ self crearCliente ].
-        opcion = '2' ifTrue: [ self crearEmpleado ].
-        opcion = '3' ifTrue: [ self crearProveedor ].
-        opcion = '4' ifTrue: [ self crearProducto ].
-        opcion = '5' ifTrue: [ self crearTipoPago ].
-        opcion = '6' ifTrue: [ self crearCaja ].
-        opcion = '7' ifTrue: [ continuar := false ].
-    ].
-	!
-
-mostrarSubmenuEliminacion
-	| opcion continuar |
-	 continuar := true.
-	[ continuar ] whileTrue: [
-        Transcript clear.
-        Transcript show: '--- SUBMENÚ DE ELIMINACIÓN ---'; cr.
-        Transcript show: '1. Eliminar cliente'; cr.
-        Transcript show: '2. Eliminar empleado'; cr.
-        Transcript show: '3. Eliminar proveedor'; cr.
-        Transcript show: '4. Eliminar producto'; cr.
-        Transcript show: '5. Volver al menú principal'; cr.
-
-        opcion := Prompter prompt: 'Ingrese opción (1-5)'.
-	Transcript show: '------------------------------------'; cr.
-
-        opcion = '1' ifTrue: [ self eliminarCliente ].
-        opcion = '2' ifTrue: [ self eliminarEmpleado ].
-        opcion = '3' ifTrue: [ self eliminarProveedor ].
-        opcion = '4' ifTrue: [ self eliminarProducto ].
-        opcion = '5' ifTrue: [ continuar := false ].
-    ].!
-
-
 mostrarSubMenuConsulta
 	| opcion continuar id objeto |
 	continuar := true.
@@ -572,6 +546,76 @@ mostrarSubmenuEstadistica
         Transcript show: '5. Volver al menú principal'; cr.
 
         opcion := Prompter prompt: 'Ingrese opción (1-5)'.
+
+        opcion = '1' ifTrue: [ self  stockPorCategoria ].
+        opcion = '2' ifTrue: [ self ventasPorTipoPago ].
+        opcion = '3' ifTrue: [ self productosMasVendidos ].
+        opcion = '4' ifTrue: [ self verRecaudacionCaja ].
+        opcion = '5' ifTrue: [ continuar := false ].
+    ].
+	!
+
+mostrarSubmenuCreacion
+	| opcion continuar |
+	 continuar := true.
+	[ continuar ] whileTrue: [
+        Transcript clear.
+        Transcript show: '--- SUBMENÚ DE CREACIÓN ---'; cr.
+        Transcript show: '1. Crear cliente'; cr.
+        Transcript show: '2. Crear empleado'; cr.
+        Transcript show: '3. Crear proveedor'; cr.
+        Transcript show: '4. Crear producto'; cr.
+        Transcript show: '5. Crear tipo de pago'; cr.
+        Transcript show: '6. Crear caja'; cr.
+        Transcript show: '7. Volver al menú principal'; cr.
+
+        opcion := Prompter prompt: 'Ingrese opción (1-7)'.
+
+        opcion = '1' ifTrue: [ self crearCliente ].
+        opcion = '2' ifTrue: [ self crearEmpleado ].
+        opcion = '3' ifTrue: [ self crearProveedor ].
+        opcion = '4' ifTrue: [ self crearProducto ].
+        opcion = '5' ifTrue: [ self crearTipoPago ].
+        opcion = '6' ifTrue: [ self crearCaja ].
+        opcion = '7' ifTrue: [ continuar := false ].
+    ].
+	!
+
+mostrarSubmenuEliminacion
+	| opcion continuar |
+	 continuar := true.
+	[ continuar ] whileTrue: [
+        Transcript clear.
+        Transcript show: '--- SUBMENÚ DE ELIMINACIÓN ---'; cr.
+        Transcript show: '1. Eliminar cliente'; cr.
+        Transcript show: '2. Eliminar empleado'; cr.
+        Transcript show: '3. Eliminar proveedor'; cr.
+        Transcript show: '4. Eliminar producto'; cr.
+        Transcript show: '5. Volver al menú principal'; cr.
+
+        opcion := Prompter prompt: 'Ingrese opción (1-5)'.
+	Transcript show: '------------------------------------'; cr.
+
+        opcion = '1' ifTrue: [ self eliminarCliente ].
+        opcion = '2' ifTrue: [ self eliminarEmpleado ].
+        opcion = '3' ifTrue: [ self eliminarProveedor ].
+        opcion = '4' ifTrue: [ self eliminarProducto ].
+        opcion = '5' ifTrue: [ continuar := false ].
+    ].!
+
+mostrarSubmenuEstadistica
+	| opcion continuar |
+	 continuar := true.
+	[ continuar ] whileTrue: [
+        Transcript clear.
+        Transcript show: '--- SUBMEN� DE Estadisticas ---'; cr.
+        Transcript show: '1. Stock por Categoria'; cr.
+        Transcript show: '2. Cantidad de Ventas por Tipo de Pago'; cr.
+        Transcript show: '3. Productos mas Vendidos'; cr.
+        Transcript show: '4. Recaudacion de una Caja por ID'; cr.
+        Transcript show: '5. Volver al men� principal'; cr.
+
+        opcion := Prompter prompt: 'Ingrese opci�n (1-5)'.
 
         opcion = '1' ifTrue: [ self  stockPorCategoria ].
         opcion = '2' ifTrue: [ self ventasPorTipoPago ].
@@ -775,6 +819,7 @@ verRecaudacionCaja
 !MenuPrincipal categoriesFor: #crearCaja!public! !
 !MenuPrincipal categoriesFor: #crearCliente!public! !
 !MenuPrincipal categoriesFor: #crearEmpleado!public! !
+!MenuPrincipal categoriesFor: #crearproducto!public! !
 !MenuPrincipal categoriesFor: #crearProducto!public! !
 !MenuPrincipal categoriesFor: #crearProveedor!public! !
 !MenuPrincipal categoriesFor: #crearTipoPago!public! !
@@ -785,6 +830,7 @@ verRecaudacionCaja
 !MenuPrincipal categoriesFor: #filtrarProductosPorCategoria!public! !
 !MenuPrincipal categoriesFor: #iniciarMenu!public! !
 !MenuPrincipal categoriesFor: #mostrarMenu!public! !
+!MenuPrincipal categoriesFor: #mostrarSubMenuConsulta!public! !
 !MenuPrincipal categoriesFor: #mostrarSubmenuCreacion!public! !
 !MenuPrincipal categoriesFor: #mostrarSubmenuEliminacion!public! !
 !MenuPrincipal categoriesFor: #mostrarSubmenuEstadistica!public! !

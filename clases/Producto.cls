@@ -35,7 +35,7 @@ modProveedor: unProveedor
     proveedor := unProveedor.!
 
 modStock:cantidad
-stock = stock-cantidad.!
+stock := stock-cantidad.!
 
 modStockMinimo:unStockMin
 stockMinimo:=unStockMin.!
