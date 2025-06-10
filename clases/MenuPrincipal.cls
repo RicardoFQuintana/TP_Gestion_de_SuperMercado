@@ -475,7 +475,8 @@ Transcript show: '5. Volver al menú principal'; cr.
 		Transcript show: 'Precio: ', (objeto verPrecio) printString; cr.
                  Transcript show: 'Categoria:', objeto verCategoria; cr.
 		Transcript show: 'Stock: ', (objeto verStock) printString; cr.
-					]
+					].
+Prompter prompt: 'Presione ENTER para continuar'.
 			].
 	  opcion = '2' ifTrue: [
             id := Prompter prompt: 'Ingrese ID de proveedor'.
@@ -489,6 +490,7 @@ Transcript show: '5. Volver al menú principal'; cr.
 		Transcript show: 'Razón Social: ', objeto verRazonSocial; cr.
 		Transcript show: 'Dirección: ', objeto verDireccion; cr.
     ].
+Prompter prompt: 'Presione ENTER para continuar'.
 
         ].
     
@@ -510,6 +512,7 @@ Transcript show: '5. Volver al menú principal'; cr.
 			Transcript show: 'Salario: ', (objeto verSalario) printString; cr.
 			Transcript show: 'Fecha de ingreso: ', objeto verFechaIngresa; cr.
 				].
+Prompter prompt: 'Presione ENTER para continuar'.
 			].
 
   
@@ -526,34 +529,16 @@ Transcript show: '5. Volver al menú principal'; cr.
             Transcript show: 'Cliente encontrado:'; cr.
             Transcript show: 'ID: ', objeto verId; cr.
             Transcript show: 'DNI: ', objeto verDni; cr.
+
             
         ].
+Prompter prompt: 'Presione ENTER para continuar'.
 ].
 
         opcion = '5' ifTrue: [ continuar := false ].
+	Prompter prompt: 'Presione ENTER para continuar'.
     ].
-
-mostrarSubmenuEstadistica
-	| opcion continuar |
-	 continuar := true.
-	[ continuar ] whileTrue: [
-        Transcript clear.
-        Transcript show: '--- SUBMENÚ DE Estadisticas ---'; cr.
-        Transcript show: '1. Stock por Categoria'; cr.
-        Transcript show: '2. Cantidad de Ventas por Tipo de Pago'; cr.
-        Transcript show: '3. Productos mas Vendidos'; cr.
-        Transcript show: '4. Recaudacion de una Caja por ID'; cr.
-        Transcript show: '5. Volver al menú principal'; cr.
-
-        opcion := Prompter prompt: 'Ingrese opción (1-5)'.
-
-        opcion = '1' ifTrue: [ self  stockPorCategoria ].
-        opcion = '2' ifTrue: [ self ventasPorTipoPago ].
-        opcion = '3' ifTrue: [ self productosMasVendidos ].
-        opcion = '4' ifTrue: [ self verRecaudacionCaja ].
-        opcion = '5' ifTrue: [ continuar := false ].
-    ].
-	!
+!
 
 mostrarSubmenuCreacion
 	| opcion continuar |
