@@ -55,6 +55,54 @@ descontarStockDeProductos: diccionario
         producto isNil ifFalse: [ producto modStock: cant ].
     ].!
 
+eliminarCliente: unId
+    | cliente |
+    cliente := self verListClientes detect: [:c | c verId = unId] ifNone: [nil].
+    
+    cliente ifNil: [
+        Transcript show: 'Cliente no encontrado.'; cr.
+        ^self.
+    ].
+    
+    self verListClientes remove: cliente.
+    Transcript show: 'Cliente eliminado con éxito.'; cr.!
+
+eliminarEmpleado: unId
+    | empleado |
+    empleado := self verListEmpleados detect: [:e | e verIdEmpleado = unId] ifNone: [nil].
+    
+    empleado ifNil: [
+        Transcript show: 'Empleado no encontrado.'; cr.
+        ^self.
+    ].
+    
+    self verListEmpleados remove: empleado .
+    Transcript show: 'Empleado eliminado con éxito.'; cr.!
+
+eliminarProducto: unId
+    | producto |
+    producto := self verListProductoVenta detect: [:p | p verIdProducto = unId] ifNone: [nil].
+    
+    producto ifNil: [
+        Transcript show: 'Producto no encontrado.'; cr.
+        ^self.
+    ].
+    
+    self verListProductoVenta remove: producto .
+    Transcript show: 'Producto eliminado con éxito.'; cr.!
+
+eliminarProveedor: unId
+    | proveedor |
+    proveedor := self verListProveedor detect: [:p | p verId = unId] ifNone: [nil].
+    
+    proveedor ifNil: [
+        Transcript show: 'Proveedor no encontrado.'; cr.
+        ^self.
+    ].
+    
+    self verListProveedor remove: proveedor .
+    Transcript show: 'Proveedor eliminado con éxito.'; cr.!
+
 generarIdVenta
     ^'v', (1000 + self verListaVentas size + 1) asString.!
 
@@ -181,6 +229,10 @@ verNombre
 !SuperMecado categoriesFor: #buscarProductoPorNombre:!public! !
 !SuperMecado categoriesFor: #buscarProveedorPorId:!public! !
 !SuperMecado categoriesFor: #descontarStockDeProductos:!public! !
+!SuperMecado categoriesFor: #eliminarCliente:!public! !
+!SuperMecado categoriesFor: #eliminarEmpleado:!public! !
+!SuperMecado categoriesFor: #eliminarProducto:!public! !
+!SuperMecado categoriesFor: #eliminarProveedor:!public! !
 !SuperMecado categoriesFor: #generarIdVenta!public! !
 !SuperMecado categoriesFor: #initSupermercadoNombre:direccion:!public! !
 !SuperMecado categoriesFor: #modDireccion:!public! !

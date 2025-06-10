@@ -106,6 +106,54 @@ crearTipoPago
 
 !
 
+eliminarCliente
+    (supermercado verListClientes isEmpty)
+        ifTrue: [
+            Transcript show: 'No hay clientes para eliminar.'; cr.
+        ]
+        ifFalse: [
+            | id |
+            id := Prompter prompt: 'Ingrese el id del cliente que desea eliminar'.
+            supermercado eliminarCliente: id.
+	    Prompter prompt: 'Presione ENTER para continuar'.
+        ].!
+
+eliminarEmpleado
+    (supermercado verListEmpleados isEmpty)
+        ifTrue: [
+            Transcript show: 'No hay empleados para eliminar.'; cr.
+        ]
+        ifFalse: [
+            | id |
+            id := Prompter prompt: 'Ingrese el id del empleado que desea eliminar'.
+            supermercado eliminarEmpleado: id.
+	    Prompter prompt: 'Presione ENTER para continuar'.
+        ].!
+
+eliminarProducto
+    (supermercado verListProductoVenta isEmpty)
+        ifTrue: [
+            Transcript show: 'No hay productos para eliminar.'; cr.
+        ]
+        ifFalse: [
+            | id |
+            id := Prompter prompt: 'Ingrese el id del producto que desea eliminar'.
+            supermercado eliminarProducto: id.
+	    Prompter prompt: 'Presione ENTER para continuar'.
+        ].!
+
+eliminarProveedor
+    (supermercado verListProveedor isEmpty)
+        ifTrue: [
+            Transcript show: 'No hay proveedor para eliminar.'; cr.
+        ]
+        ifFalse: [
+            | id |
+            id := Prompter prompt: 'Ingrese el id del proveedor que desea eliminar'.
+            supermercado eliminarProveedor: id.
+	    Prompter prompt: 'Presione ENTER para continuar'.
+        ].!
+
 iniciarMenu
 	| proveedor1 proveedor2 cliente1 cliente2 cliente3 tipoPago1 tipoPago2 caja venta1 venta2 |
 	supermercado := SuperMecado crearSupermercadoNombre: 'SuperDemo' direccion: 'Av. Siempre Viva 742'.
@@ -325,16 +373,18 @@ mostrarMenu
         Transcript show: '3. Ver productos por proveedor'; cr.
 	Transcript show: '4. Estadisticas del Negocio'; cr.
 	Transcript show: '5. Realizar Venta'; cr.
-        Transcript show: '6. Salir'; cr.
+	Transcript show: '6. Submenú de Eliminación (Cliente, Empleado, Proveedor y Producto)'; cr.
+        Transcript show: '7. Salir'; cr.
 
-        opcion := Prompter prompt: 'Ingrese opción (1-4)'.
+        opcion := Prompter prompt: 'Ingrese opción (1-7)'.
 
         opcion = '1' ifTrue: [ self mostrarSubmenuCreacion ].
         opcion = '2' ifTrue: [ self buscarProducto ].
         opcion = '3' ifTrue: [ self verProductosPorProveedor ].
 	opcion = '4' ifTrue: [ self mostrarSubmenuEstadistica ].
 	opcion = '5' ifTrue: [ self ventaAlPublico ].
-        opcion = '6' ifTrue: [ continuar := false ].
+	opcion = '6' ifTrue: [ self mostrarSubmenuEliminacion ].
+        opcion = '7' ifTrue: [ continuar := false ].
 	
     ].
 	!
@@ -364,6 +414,27 @@ mostrarSubmenuCreacion
         opcion = '7' ifTrue: [ continuar := false ].
     ].
 	!
+
+mostrarSubmenuEliminacion
+	| opcion continuar |
+	 continuar := true.
+	[ continuar ] whileTrue: [
+        Transcript clear.
+        Transcript show: '--- SUBMENÚ DE ELIMINACIÓN ---'; cr.
+        Transcript show: '1. Eliminar cliente'; cr.
+        Transcript show: '2. Eliminar empleado'; cr.
+        Transcript show: '3. Eliminar proveedor'; cr.
+        Transcript show: '4. Eliminar producto'; cr.
+        Transcript show: '5. Volver al menú principal'; cr.
+
+        opcion := Prompter prompt: 'Ingrese opción (1-5)'.
+
+        opcion = '1' ifTrue: [ self eliminarCliente ].
+        opcion = '2' ifTrue: [ self eliminarEmpleado ].
+        opcion = '3' ifTrue: [ self eliminarProveedor ].
+        opcion = '4' ifTrue: [ self eliminarProducto ].
+        opcion = '5' ifTrue: [ continuar := false ].
+    ].!
 
 mostrarSubmenuEstadistica
 	| opcion continuar |
@@ -506,9 +577,14 @@ verRecaudacionCaja
 !MenuPrincipal categoriesFor: #crearproducto!public! !
 !MenuPrincipal categoriesFor: #crearProveedor!public! !
 !MenuPrincipal categoriesFor: #crearTipoPago!public! !
+!MenuPrincipal categoriesFor: #eliminarCliente!public! !
+!MenuPrincipal categoriesFor: #eliminarEmpleado!public! !
+!MenuPrincipal categoriesFor: #eliminarProducto!public! !
+!MenuPrincipal categoriesFor: #eliminarProveedor!public! !
 !MenuPrincipal categoriesFor: #iniciarMenu!public! !
 !MenuPrincipal categoriesFor: #mostrarMenu!public! !
 !MenuPrincipal categoriesFor: #mostrarSubmenuCreacion!public! !
+!MenuPrincipal categoriesFor: #mostrarSubmenuEliminacion!public! !
 !MenuPrincipal categoriesFor: #mostrarSubmenuEstadistica!public! !
 !MenuPrincipal categoriesFor: #productosMasVendidos!public! !
 !MenuPrincipal categoriesFor: #stockPorCategoria!public! !
