@@ -479,14 +479,13 @@ mostrarSubMenuConsulta
 	continuar := true.
 	[ continuar ] whileTrue: [
         Transcript clear.
-        Transcript show: 
-'--- SUBMENÚ DE CONSULTA POR ID ---
-1. Consultar producto
-2. Consultar proveedor
-3. Consultar empleado
-4. Consultar cliente
-5. Volver al menú principal
-'; cr.
+     Transcript show: '--- SUBMENÚ DE CONSULTA POR ID ---'; cr.
+Transcript show: '1. Consultar producto'; cr.
+Transcript show: '2. Consultar proveedor'; cr.
+Transcript show: '3. Consultar empleado'; cr.
+Transcript show: '4. Consultar cliente'; cr.
+Transcript show: '5. Volver al menú principal'; cr.
+
 
         opcion := Prompter prompt: 'Ingrese opción (1-5)'.
 
