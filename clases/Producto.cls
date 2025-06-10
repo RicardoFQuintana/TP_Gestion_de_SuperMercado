@@ -40,6 +40,16 @@ stock = stock-cantidad.!
 modStockMinimo:unStockMin
 stockMinimo:=unStockMin.!
 
+mostrarInformacion
+    Transcript show: 'Id: ', self verIdProducto ; cr.	
+    Transcript show: 'Nombre: ', self verNombre; cr.
+    Transcript show: 'Precio: $', self verPrecio printString; cr.
+    Transcript show: 'Categoría: ', self verCategoria ; cr.
+    Transcript show: 'Stock: ', self verStock printString; cr.
+    Transcript show: 'Stock Mínimo: ', self verStockMinimo printString; cr.
+    Transcript show: 'Proveedor: ', self verProveedor verNombre; cr.
+    Transcript show: '-------------------------'; cr.!
+
 verCategoria
 ^categoria.!
 
@@ -56,7 +66,10 @@ verProveedor
     ^proveedor.!
 
 verStock
-^stock.! !
+^stock.!
+
+verStockMinimo
+^stockMinimo.! !
 !Producto categoriesFor: #iniProductoId:nom:precio:cat:sMin:stock:proveedor:!public! !
 !Producto categoriesFor: #modCategoria:!public! !
 !Producto categoriesFor: #modIdProducto:!public! !
@@ -65,12 +78,14 @@ verStock
 !Producto categoriesFor: #modProveedor:!public! !
 !Producto categoriesFor: #modStock:!public! !
 !Producto categoriesFor: #modStockMinimo:!public! !
+!Producto categoriesFor: #mostrarInformacion!public! !
 !Producto categoriesFor: #verCategoria!public! !
 !Producto categoriesFor: #verIdProducto!public! !
 !Producto categoriesFor: #verNombre!public! !
 !Producto categoriesFor: #verPrecio!public! !
 !Producto categoriesFor: #verProveedor!public! !
 !Producto categoriesFor: #verStock!public! !
+!Producto categoriesFor: #verStockMinimo!public! !
 
 !Producto class methodsFor!
 
