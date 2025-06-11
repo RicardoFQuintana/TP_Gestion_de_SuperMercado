@@ -36,7 +36,7 @@ crearCliente
 | n d t i cli |
     n := Prompter prompt: 'Nombre'.
     d := Prompter prompt: 'DNI'.
-    t := Prompter prompt: 'TelÃ©fono'.
+    t := Prompter prompt: 'Teléfono'.
     i := Prompter prompt: 'ID'.
     cli := Cliente  crearClienteId: i nom: n dni: d tel: t.
     supermercado agregarCliente: cli.
@@ -48,7 +48,7 @@ crearEmpleado
     | n d t i c s f emp |
     n := Prompter prompt: 'Nombre'.
     d := Prompter prompt: 'DNI'.
-    t := Prompter prompt: 'TelÃ©fono'.
+    t := Prompter prompt: 'Teléfono'.
     i := Prompter prompt: 'ID'.
     c:= Prompter prompt: 'Cargo'.
     s := (Prompter prompt: 'Salario') asNumber.
@@ -58,29 +58,6 @@ crearEmpleado
     Transcript show: 'Empleado agregado: ', emp verNombre; cr.
 
 Prompter prompt: 'Presione ENTER para continuar'.!
-
-crearproducto
-    | n p c i  sM S pro proveedor proveedorId|
-
-    supermercado agregarProveedor: proveedor.
-    n := Prompter prompt: 'Nombre'.
-    p := (Prompter prompt: 'Precio') asNumber.
-    c := Prompter prompt: 'Categoria'.
-    i := Prompter prompt: 'ID'.
-    S := (Prompter prompt: 'Stock') asNumber.
-    sM := (Prompter prompt: 'Stock Minimo') asNumber.
-
-   proveedorId := Prompter prompt: ' Ingrese ID de un Proveedor'.
-
-    proveedor := supermercado buscarProveedorPorId: proveedorId.
-
-    pro := Producto crearProductoId:i nom: n precio: p cat: c sMin: sM stock: S proveedor: proveedor.
-    supermercado agregarProductoVenta: pro.
-    Transcript show: 'Producto agregado: ', pro verNombre; cr.
-
-
-    
-    !
 
 crearProducto
     | n p c i sM S pro proveedor proveedorId |
@@ -114,7 +91,7 @@ crearProveedor
 | n d t i c rs dire proveedor |
     n := Prompter prompt: 'Nombre'.
     d := Prompter prompt: 'DNI'.
-    t := Prompter prompt: 'TelÃ©fono'.
+    t := Prompter prompt: 'Teléfono'.
     i := Prompter prompt: 'ID'.
     c:= Prompter prompt: 'Cuit'.
     rs := Prompter prompt: 'Razon Social'.
@@ -196,14 +173,14 @@ Prompter prompt: 'Presione ENTER para continuar'.!
 
 filtrarProductosPorCategoria
     | categoria productos col |
-    categoria := Prompter prompt: 'Ingrese la categorÃ­a para filtrar sus productos'.
+    categoria := Prompter prompt: 'Ingrese la categoría para filtrar sus productos'.
     productos := supermercado verListProductoVenta.
     col := productos select: [:p | p verCategoria = categoria].
 
     col isEmpty
-        ifTrue: [ Transcript show: 'No hay productos en la categorÃ­a ingresada.'; cr ]
+        ifTrue: [ Transcript show: 'No hay productos en la categoría ingresada.'; cr ]
         ifFalse: [
-            Transcript show: 'Productos en la categorÃ­a ', categoria, ':'; cr.
+            Transcript show: 'Productos en la categoría ', categoria, ':'; cr.
             col do: [:prod | prod mostrarInformacion].
         ].
 
@@ -234,7 +211,7 @@ iniciarMenu
 				crearProductoId: 'P001'
 				nom: 'Yerba Mate'
 				precio: 1200
-				cat: 'InfusiÃ³n'
+				cat: 'Infusión'
 				sMin: 5
 				stock: 30
 				proveedor: proveedor1).
@@ -242,7 +219,7 @@ iniciarMenu
 				crearProductoId: 'P002'
 				nom: 'Aceite'
 				precio: 1700
-				cat: 'AlmacÃ©n'
+				cat: 'Almacén'
 				sMin: 3
 				stock: 10
 				proveedor: proveedor1).
@@ -250,7 +227,7 @@ iniciarMenu
 				crearProductoId: 'P003'
 				nom: 'Fideos'
 				precio: 800
-				cat: 'AlmacÃ©n'
+				cat: 'Almacén'
 				sMin: 5
 				stock: 15
 				proveedor: proveedor1).
@@ -258,7 +235,7 @@ iniciarMenu
 				crearProductoId: 'P004'
 				nom: 'Arroz'
 				precio: 950
-				cat: 'AlmacÃ©n'
+				cat: 'Almacén'
 				sMin: 4
 				stock: 20
 				proveedor: proveedor1).
@@ -282,7 +259,7 @@ iniciarMenu
 				crearProductoId: 'P007'
 				nom: 'Leche'
 				precio: 950
-				cat: 'LÃ¡cteos'
+				cat: 'Lácteos'
 				sMin: 5
 				stock: 22
 				proveedor: proveedor2).
@@ -290,7 +267,7 @@ iniciarMenu
 				crearProductoId: 'P008'
 				nom: 'Queso'
 				precio: 1800
-				cat: 'LÃ¡cteos'
+				cat: 'Lácteos'
 				sMin: 3
 				stock: 12
 				proveedor: proveedor2).
@@ -298,7 +275,7 @@ iniciarMenu
 				crearProductoId: 'P009'
 				nom: 'Pan'
 				precio: 400
-				cat: 'PanaderÃ­a'
+				cat: 'Panadería'
 				sMin: 10
 				stock: 40
 				proveedor: proveedor2).
@@ -306,7 +283,7 @@ iniciarMenu
 				crearProductoId: 'P010'
 				nom: 'Sal'
 				precio: 200
-				cat: 'AlmacÃ©n'
+				cat: 'Almacén'
 				sMin: 2
 				stock: 35
 				proveedor: proveedor2).
@@ -314,7 +291,7 @@ iniciarMenu
 	"Clientes"
 	cliente1 := Cliente
 				crearClienteId: 'C001'
-				nom: 'MarÃ­a'
+				nom: 'María'
 				dni: '30111222'
 				tel: '1133224455'.
 	cliente2 := Cliente
@@ -358,7 +335,7 @@ iniciarMenu
 				descuento: 10.
 	tipoPago2 := Tipo_Pago
 				crearTipoPagoId: 'T002'
-				detalle: 'Tarjeta de CrÃ©dito'
+				detalle: 'Tarjeta de Crédito'
 				descuento: 5.
 
 	"Caja"
@@ -423,28 +400,27 @@ mostrarMenu
     [ continuar ] whileTrue: [
 	Transcript clear.
         Transcript show: '--- MENU PRINCIPAL ---'; cr.
-	Transcript show: '1. SubmenÃº de creaciÃ³n (Cliente, Empleado, Proveedor, Producto, Caja y TipoPago)'; cr.
-        Transcript show: '2. Buscar producto por ID'; cr.
-        Transcript show: '3. Ver productos por proveedor'; cr.
+	Transcript show: '1. Submenú de Creación (Cliente, Empleado, Proveedor, Producto, Caja y TipoPago)'; cr.
+	Transcript show: '2. SubMenú de Consulta por ID'; cr. 
+        Transcript show: '3. Ver Productos por Proveedor'; cr.
 	Transcript show: '4. Estadisticas del Negocio'; cr.
 	Transcript show: '5. Realizar Venta'; cr.
-	Transcript show: '6. SubmenÃº de EliminaciÃ³n (Cliente, Empleado, Proveedor y Producto)'; cr.
-	Transcript show: '7. InformaciÃ³n de Productos'; cr.
-	Transcript show: '8. SubMenu de Consulta por ID'; cr.                                                         
-        Transcript show: '9. Salir'; cr.
+	Transcript show: '6. Submenú de Eliminación (Cliente, Empleado, Proveedor y Producto)'; cr.
+	Transcript show: '7. Información de Productos'; cr.                                                        
+        Transcript show: '8. Salir'; cr.
 	Transcript show: ''; cr.
 
-        opcion := Prompter prompt: 'Ingrese opciÃ³n (1-9)'.
+        opcion := Prompter prompt: 'Ingrese opción (1-8)'.
+	Transcript show: '------------------------------------'; cr.
 
         opcion = '1' ifTrue: [ self mostrarSubmenuCreacion ].
-        opcion = '2' ifTrue: [ self buscarProducto ].
+        opcion = '2' ifTrue: [ self mostrarSubMenuConsulta ].
         opcion = '3' ifTrue: [ self verProductosPorProveedor ].
 	opcion = '4' ifTrue: [ self mostrarSubmenuEstadistica ].
 	opcion = '5' ifTrue: [ self ventaAlPublico ].
 	opcion = '6' ifTrue: [ self mostrarSubmenuEliminacion ].
 	opcion = '7' ifTrue: [ self mostrarSubmenuInformacionProductos ].
-        opcion = '8' ifTrue: [ self mostrarSubMenuConsulta ].
-	opcion = '9' ifTrue: [ continuar := false ].
+	opcion = '8' ifTrue: [ continuar := false ].
     ].
 	!
 
@@ -453,15 +429,16 @@ mostrarSubMenuConsulta
 	continuar := true.
 	[ continuar ] whileTrue: [
         Transcript clear.
-     Transcript show: '--- SUBMENÃš DE CONSULTA POR ID ---'; cr.
+     Transcript show: '--- SUBMENÚ DE CONSULTA POR ID ---'; cr.
 Transcript show: '1. Consultar producto'; cr.
 Transcript show: '2. Consultar proveedor'; cr.
 Transcript show: '3. Consultar empleado'; cr.
 Transcript show: '4. Consultar cliente'; cr.
-Transcript show: '5. Volver al menÃº principal'; cr.
+Transcript show: '5. Volver al menú principal'; cr.
 
 
-        opcion := Prompter prompt: 'Ingrese opciÃ³n (1-5)'.
+        opcion := Prompter prompt: 'Ingrese opción (1-5)'.
+	Transcript show: '------------------------------------'; cr.
 
         opcion = '1' ifTrue: [
             id := Prompter prompt: 'Ingrese ID de producto'.
@@ -469,14 +446,14 @@ Transcript show: '5. Volver al menÃº principal'; cr.
           objeto isNil
              ifTrue: [ Transcript show: 'Producto no encontrado.'; cr ]
              ifFalse: [
-		Transcript show: 'Objeto encontrado:'; cr.
+		Transcript show: 'Producto encontrado:'; cr.
 		Transcript show: 'ID: ', objeto verIdProducto; cr.
 		Transcript show: 'Nombre: ', objeto verNombre; cr.
 		Transcript show: 'Precio: ', (objeto verPrecio) printString; cr.
                  Transcript show: 'Categoria:', objeto verCategoria; cr.
 		Transcript show: 'Stock: ', (objeto verStock) printString; cr.
 					].
-Prompter prompt: 'Presione ENTER para continuar'.
+Prompter prompt: 'Presione ENTER para continuar'
 			].
 	  opcion = '2' ifTrue: [
             id := Prompter prompt: 'Ingrese ID de proveedor'.
@@ -486,9 +463,8 @@ Prompter prompt: 'Presione ENTER para continuar'.
 	ifFalse: [
 		Transcript show: 'Proveedor encontrado:'; cr.
 		Transcript show: 'ID: ', objeto verId; cr.
-		Transcript show: 'CUIT: ', objeto verCuit; cr.
-		Transcript show: 'RazÃ³n Social: ', objeto verRazonSocial; cr.
-		Transcript show: 'DirecciÃ³n: ', objeto verDireccion; cr.
+		Transcript show: 'Razón Social: ', objeto verRazonSocial; cr.
+		Transcript show: 'Dirección: ', objeto verDireccion; cr.
     ].
 Prompter prompt: 'Presione ENTER para continuar'.
 
@@ -507,7 +483,7 @@ Prompter prompt: 'Presione ENTER para continuar'.
 			Transcript show: 'ID: ', objeto verIdEmpleado; cr.
 			Transcript show: 'Nombre: ', objeto verNombre; cr.
 			Transcript show: 'DNI: ', objeto verDni; cr.
-			Transcript show: 'TelÃ©fono: ', objeto verTelefono; cr.
+			Transcript show: 'Teléfono: ', objeto verTelefono; cr.
 			Transcript show: 'Cargo: ', objeto verCargo; cr.
 			Transcript show: 'Salario: ', (objeto verSalario) printString; cr.
 			Transcript show: 'Fecha de ingreso: ', objeto verFechaIngresa; cr.
@@ -536,7 +512,6 @@ Prompter prompt: 'Presione ENTER para continuar'.
 ].
 
         opcion = '5' ifTrue: [ continuar := false ].
-	Prompter prompt: 'Presione ENTER para continuar'.
     ].
 !
 
@@ -545,16 +520,17 @@ mostrarSubmenuCreacion
 	 continuar := true.
 	[ continuar ] whileTrue: [
         Transcript clear.
-        Transcript show: '--- SUBMENÃš DE CREACIÃ“N ---'; cr.
+        Transcript show: '--- SUBMENÚ DE CREACIÓN ---'; cr.
         Transcript show: '1. Crear cliente'; cr.
         Transcript show: '2. Crear empleado'; cr.
         Transcript show: '3. Crear proveedor'; cr.
         Transcript show: '4. Crear producto'; cr.
         Transcript show: '5. Crear tipo de pago'; cr.
         Transcript show: '6. Crear caja'; cr.
-        Transcript show: '7. Volver al menÃº principal'; cr.
+        Transcript show: '7. Volver al menú principal'; cr.
 
-        opcion := Prompter prompt: 'Ingrese opciÃ³n (1-7)'.
+        opcion := Prompter prompt: 'Ingrese opción (1-7)'.
+	Transcript show: '------------------------------------'; cr.
 
         opcion = '1' ifTrue: [ self crearCliente ].
         opcion = '2' ifTrue: [ self crearEmpleado ].
@@ -571,14 +547,14 @@ mostrarSubmenuEliminacion
 	 continuar := true.
 	[ continuar ] whileTrue: [
         Transcript clear.
-        Transcript show: '--- SUBMENÃš DE ELIMINACIÃ“N ---'; cr.
+        Transcript show: '--- SUBMENÚ DE ELIMINACIÓN ---'; cr.
         Transcript show: '1. Eliminar cliente'; cr.
         Transcript show: '2. Eliminar empleado'; cr.
         Transcript show: '3. Eliminar proveedor'; cr.
         Transcript show: '4. Eliminar producto'; cr.
-        Transcript show: '5. Volver al menÃº principal'; cr.
+        Transcript show: '5. Volver al menú principal'; cr.
 
-        opcion := Prompter prompt: 'Ingrese opciÃ³n (1-5)'.
+        opcion := Prompter prompt: 'Ingrese opción (1-5)'.
 	Transcript show: '------------------------------------'; cr.
 
         opcion = '1' ifTrue: [ self eliminarCliente ].
@@ -596,15 +572,16 @@ mostrarSubmenuEstadistica
         Transcript show: '--- SUBMENÚ DE Estadisticas ---'; cr.
         Transcript show: '1. Stock por Categoria'; cr.
         Transcript show: '2. Cantidad de Ventas por Tipo de Pago'; cr.
-        Transcript show: '3. Productos mas Vendidos'; cr.
+        Transcript show: '3. Productos Vendidos'; cr.
         Transcript show: '4. Recaudacion de una Caja por ID'; cr.
         Transcript show: '5. Volver al menú principal'; cr.
 
         opcion := Prompter prompt: 'Ingrese opción (1-5)'.
+	Transcript show: '------------------------------------'; cr.
 
         opcion = '1' ifTrue: [ self  stockPorCategoria ].
         opcion = '2' ifTrue: [ self ventasPorTipoPago ].
-        opcion = '3' ifTrue: [ self productosMasVendidos ].
+        opcion = '3' ifTrue: [ self productosVendidos ].
         opcion = '4' ifTrue: [ self verRecaudacionCaja ].
         opcion = '5' ifTrue: [ continuar := false ].
     ].
@@ -615,16 +592,16 @@ mostrarSubmenuInformacionProductos
 	 continuar := true.
 	[ continuar ] whileTrue: [
         Transcript clear.
-        Transcript show: '--- SUBMENÃš DE INFORMACIÃ“N DE PRODUCTOS ---'; cr.
+        Transcript show: '--- SUBMENÚ DE INFORMACIÓN DE PRODUCTOS ---'; cr.
         Transcript show: '1. Ver un producto'; cr.
 	Transcript show: '2. Ver todos los productos'; cr.
-	Transcript show: '3. Ver categorÃ­as'; cr.
-	Transcript show: '4. Filtrar productos por categorÃ­a'; cr.
-        Transcript show: '5. Ver productos que necesitan reposiciÃ³n de stock'; cr.
+	Transcript show: '3. Ver categorías'; cr.
+	Transcript show: '4. Filtrar productos por categoría'; cr.
+        Transcript show: '5. Ver productos que necesitan reposición de stock'; cr.
         Transcript show: '6. Ver productos ordenados por precio'; cr.
-        Transcript show: '7. Volver al menÃº principal'; cr.
+        Transcript show: '7. Volver al menú principal'; cr.
 
-        opcion := Prompter prompt: 'Ingrese opciÃ³n (1-7)'.
+        opcion := Prompter prompt: 'Ingrese opción (1-7)'.
 	Transcript show: '------------------------------------'; cr.
 
 	opcion = '1' ifTrue: [ self  buscarProducto ].
@@ -636,8 +613,8 @@ mostrarSubmenuInformacionProductos
         opcion = '7' ifTrue: [ continuar := false ].
     ].!
 
-productosMasVendidos
-	| dict cajas facturas info id cantidad productoNombre |
+productosVendidos
+	| dict cajas facturas info cantidad productoNombre |
 	dict := Dictionary new.
 	cajas := supermercado verListaCajas.
 	cajas do: 
@@ -671,7 +648,7 @@ stockPorCategoria
 	dict keysAndValuesDo: 
 			[:cat :stk |
 			Transcript
-				show: 'CategorÃ­a: ' , cat , '  Stock total: ' , stk printString;
+				show: 'Categoría: ' , cat , '  Stock total: ' , stk printString;
 				cr].
 	Prompter prompt: 'Presione ENTER para continuar'.
 	Transcript clear.!
@@ -691,7 +668,7 @@ ventaAlPublico
 
     resultado isString
         ifTrue: [ Transcript show: resultado; cr ]
-        ifFalse: [ Transcript show: 'Venta realizada con Ã©xito. Total: ', resultado printString; cr ].
+        ifFalse: [ Transcript show: 'Venta realizada con éxito. Total: ', resultado printString; cr ].
 
 Prompter prompt: 'Presione ENTER para continuar'.!
 
@@ -729,7 +706,7 @@ verCategorias
         ifTrue: [ Transcript show: 'No hay productos disponibles'; cr ]
         ifFalse: [
             categorias := (productos collect: [:p | p verCategoria]) asSet.
-            Transcript show: 'CategorÃ­as disponibles:'; cr.
+            Transcript show: 'Categorías disponibles:'; cr.
             categorias do: [:cat | Transcript show: cat; cr].
         ].
 
@@ -771,7 +748,9 @@ verProductosPorProveedor
             ifFalse: [
                 productos do: [ :p | Transcript show: p verNombre; cr ].
             ].
-    ].!
+    ].
+
+Prompter prompt: 'Presione ENTER para continuar'.!
 
 verProductosStockBajo
     | productos productosStockBajo |
@@ -779,9 +758,9 @@ verProductosStockBajo
     productosStockBajo := productos reject: [:p | p verStock >= p verStockMinimo ].
 
     productosStockBajo isEmpty
-        ifTrue: [ Transcript show: 'No hay productos que necesiten reposiciÃ³n.'; cr ]
+        ifTrue: [ Transcript show: 'No hay productos que necesiten reposición.'; cr ]
         ifFalse: [
-            Transcript show: 'Productos que necesitan reposiciÃ³n:'; cr.
+            Transcript show: 'Productos que necesitan reposición:'; cr.
             productosStockBajo do: [:prod | prod mostrarInformacion].
         ].
 
@@ -796,7 +775,7 @@ verRecaudacionCaja
     caja isNil
         ifTrue: [ Transcript show: 'Caja no encontrada.' ]
         ifFalse: [
-	    Transcript show: 'RecaudaciÃ³n total: $', caja verRecaudacion printString; cr.
+	    Transcript show: 'Recaudación total: $', caja verRecaudacion printString; cr.
         ].
 	Prompter prompt: 'Presione ENTER para continuar'.
 	Transcript clear.! !
@@ -804,7 +783,6 @@ verRecaudacionCaja
 !MenuPrincipal categoriesFor: #crearCaja!public! !
 !MenuPrincipal categoriesFor: #crearCliente!public! !
 !MenuPrincipal categoriesFor: #crearEmpleado!public! !
-!MenuPrincipal categoriesFor: #crearproducto!public! !
 !MenuPrincipal categoriesFor: #crearProducto!public! !
 !MenuPrincipal categoriesFor: #crearProveedor!public! !
 !MenuPrincipal categoriesFor: #crearTipoPago!public! !
@@ -820,7 +798,7 @@ verRecaudacionCaja
 !MenuPrincipal categoriesFor: #mostrarSubmenuEliminacion!public! !
 !MenuPrincipal categoriesFor: #mostrarSubmenuEstadistica!public! !
 !MenuPrincipal categoriesFor: #mostrarSubmenuInformacionProductos!public! !
-!MenuPrincipal categoriesFor: #productosMasVendidos!public! !
+!MenuPrincipal categoriesFor: #productosVendidos!public! !
 !MenuPrincipal categoriesFor: #stockPorCategoria!public! !
 !MenuPrincipal categoriesFor: #ventaAlPublico!public! !
 !MenuPrincipal categoriesFor: #ventasPorTipoPago!public! !
